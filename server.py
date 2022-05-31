@@ -5,7 +5,7 @@ udp_socket= socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #get my ip and set port
 hostname = socket.gethostname()
-myip = socket.gethostbyname(hostname)
+myip = socket.gethostbyname(hostname + ".local")
 myport =10001
 
 #set buffer
