@@ -4,7 +4,7 @@ import socket
 hostname = socket.gethostname()
 myip = socket.gethostbyname(hostname + ".local")
 
-broadcast_msg = myip + "online"
+broadcast_msg = myip + " online"
 broadcast_ip = "192.168.1.255"
 broadcast_port = 5961
 
