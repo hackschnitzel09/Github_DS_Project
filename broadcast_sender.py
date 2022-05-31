@@ -9,7 +9,7 @@ buffer_size = 1024
 
 #get my ip
 hostname = socket.gethostname()
-myip = socket.gethostbyname(hostname)
+myip = socket.gethostbyname(hostname + ".local")
 
 broadcast_msg = myip + "online"
 broadcast_ip = "192.168.56.255"
