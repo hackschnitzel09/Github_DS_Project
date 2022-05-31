@@ -34,6 +34,7 @@ def client(server_ip, server_port):
 def broadcast_send(broadcast_msg, broadcast_ip, proadcast_port):
     #create socket
     broadcast_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    broadcast_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     broadcast_socket.sendto(str.encode(broadcast_msg), (broadcast_ip, broadcast_port))
     print("broadcast msg send")
 
