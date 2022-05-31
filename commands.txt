@@ -1,2 +1,6 @@
 Copy win to linux:
 scp C:\Users\kevin\Downloads\timestamp.txt ds@192.168.56.101:/home/ds/
+
+Network:
+Nat for external web access
+Host-only Adapter for intern
