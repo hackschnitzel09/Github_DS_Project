@@ -3,6 +3,9 @@ import socket
 #create udp socket
 udp_socket= socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+#set buffer
+buffer_size = 1024
+
 #get my ip and set port
 hostname = socket.gethostname()
 myip = socket.gethostbyname(hostname)
@@ -31,8 +34,7 @@ def brodcast_listener(broadcast_port, myip):
 
 
 def server(hostname, myip, myport):
-    #set buffer
-    buffer_size = 1024
+
 
     msg="hi! I am server, it works!"
 

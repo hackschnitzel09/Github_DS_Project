@@ -2,6 +2,11 @@ import socket
 
 #create UDP socket
 udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+#set buffer
+buffer_size = 1024
+
+
 #get my ip
 hostname = socket.gethostname()
 myip = socket.gethostbyname(hostname)
