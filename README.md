@@ -39,6 +39,7 @@ Voting:
 - After election leader announces itself as a leader 
 
 Architecture design:
+https://github.com/hackschnitzel09/Github_DS_Project/blob/master/Architecture%20Model.pptx
 Fig. 1. Architecture design draft. 
 
 Implementation overview: 
