@@ -1,0 +1,2 @@
+Copy win to linux:
+scp C:\Users\kevin\Downloads\timestamp.txt ds@192.168.56.101:/home/ds/
