@@ -1,4 +1,5 @@
 import json
+from operator import truediv
 import socket
 port = 45961
 
@@ -30,7 +31,7 @@ def get_ip():
     return(myip)
 
 #listen for msg on udp
-def udp_listener():
+def udp_listener(leader):
     s = create_socket()
     myip = get_ip()
     # Set the socket to broadcast and enable reusing addresses
@@ -43,6 +44,18 @@ def udp_listener():
         data, addr = s.recvfrom(1024)
         if data:
             print("Received broadcast message:", data.decode())
+            #check if Iam leader
+            if leader == True:
+                msg_split(data.decode())
+
+#Split mgs into receiver and msg and forward it to receiver
+def msg_split(rec_msg):
+    msg_obj = rec_msg.split("@")
+    to = msg_obj[0]
+    msg = msg_obj[1]
+    print(to)
+    print(msg)
+    send_msg(msg, to)
 
 
 #Send UDP msg

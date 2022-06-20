@@ -11,9 +11,6 @@ with open("servers.json","r") as servers:
 
 print(server_list["s1"])
 
-print(utility.usr_ip("kevin"))
-
-
 #my_id = server_list.index(myip)
 
 #print(my_id)
