@@ -1,5 +1,16 @@
+import json
 import socket
 port = 45961
+
+server_list = open('servers.json','r')
+
+# with open('servers.json') as json_file:
+#     servers = json.load(json_file)
+#     print(json.dumps(servers, indent=4))
+
+# with open("servers.json", "w") as write_file:
+#     json.dump(data, write_file)
+
 
 
 #create udp socket
@@ -33,11 +44,12 @@ def udp_listener():
         if data:
             print("Received broadcast message:", data.decode())
 
+
 #Send UDP msg
-def send_msg(msg, rec_ip, rec_port):
+def send_msg(msg, rec_ip):
     s = create_socket()
-    s.sendto(msg.encode(),(rec_ip, rec_port))
-    print("msg send")
+    s.sendto(msg.encode(),(rec_ip, port))
+    print("msg send to: " + rec_ip)
 
 #send broadcast
 def send_broadcast(msg):
@@ -45,3 +57,11 @@ def send_broadcast(msg):
     s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     s.sendto(str.encode(msg), (get_broadcast_ip(), port))
     print("broadcast msg send")
+
+#get ip of user by name
+def usr_ip(name):
+    with open("users.json","r") as users:
+        user_list = json.load(users)
+    usr_ip = user_list[name]
+    print("User ip is: " + usr_ip)
+    return(usr_ip)

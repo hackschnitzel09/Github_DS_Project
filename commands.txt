@@ -1,3 +1,7 @@
+mount:
+sudo mount -t cifs -o username=usr,password='pw' '//192.168.1.37/homes/Kevin/Drive/Studium/Master/Fächer/1. Semester/DBE14 Distributed Systems/Github_DS_Project/' /home/ds/mnt
+
+
 Copy win to linux:
 scp C:\Users\kevin\Downloads\timestamp.txt ds@192.168.56.101:/home/ds/
 

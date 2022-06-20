@@ -1,23 +1,29 @@
-import socket
+import utility
 
-#create UDP socket
-udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-#get my ip and set port
-hostname = socket.gethostname()
-server_ip = socket.gethostbyname(hostname + ".local")
-server_port =10001
+to = input("an wen? ")
+msg = input("nachricht? ")
 
-#set buffer
-buffer_size = 1024
+if to == "1":
+    ip = "192.168.0.172"
 
-msg="hi! I am client it works!"
+elif to == "2":
+    ip = "192.168.0.216"
 
-#send my data
-udp_socket.sendto(msg.encode(),(server_ip, server_port))
-print("Send: ", msg)
+elif to == "3":
+    ip = "192.168.0.249"
 
-#Receive response
-print("wait for server...")
-data, server = udp_socket.recvfrom(buffer_size)
-print("received: ", data.decode())
+elif to == "4":
+    ip = "192.168.1.63"
+
+elif to == "5":
+    ip = "192.168.1.160"
+
+elif to == "6":
+    ip = "192.168.1.167"
+
+else:
+    ip = "192.168.1.255"
+
+utility.send_msg(msg, ip)
+#utility.send_broadcast(msg)
