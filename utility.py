@@ -53,8 +53,11 @@ def msg_split(rec_msg):
     msg_obj = rec_msg.split("@")
     to = msg_obj[0]
     msg = msg_obj[1]
-    print(to)
-    print(msg)
+    sender = msg_obj[2]
+    print("send to: " + to)
+    print("msg: " + msg)
+    print("from: " + usr_name(sender))
+    msg = "from: " + usr_name(sender) + ": " + msg
     send_msg(msg, to)
 
 
@@ -78,3 +81,11 @@ def usr_ip(name):
     usr_ip = user_list[name]
     print("User ip is: " + usr_ip)
     return(usr_ip)
+
+#get name by ip
+def usr_name(ip):
+    with open("users.json","r") as users:
+        user_list = json.load(users)
+    names = list(user_list.keys())
+    ips = list(user_list.values())
+    return(names[ips.index(ip)])
