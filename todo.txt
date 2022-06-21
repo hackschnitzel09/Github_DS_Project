@@ -1,0 +1,7 @@
+- Dyndiscovery
+- Voting
+	- Serverlist
+	- Am I the leader?
+	- Who is my neighbour?
+- Failover
+	- Hartbear (ohne Brodcast schwer)

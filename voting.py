@@ -3,26 +3,19 @@ import utility
 import json
 from datetime import datetime
 
-myip = utility.get_ip()
 
-with open("servers.json","r") as servers:
-    server_list = json.load(servers)
+#utility.neighbour()
 
 
-print(server_list["s1"])
+msg = "voting@" + str(utility.neighbour()) + "@"  +"msg@" + utility.server_name(utility.get_ip())
+utility.send_msg(msg, (utility.server_ip(str(utility.neighbour()))))
 
-#my_id = server_list.index(myip)
+#utility.send_msg(msg, utility.server_ip(utility.neighbour()))
 
-#print(my_id)
-# print(len(server_list))
+
+#check if neigbour responts to my id send if not delete him of the list and send to next
 
 # msg = "my id is: " + str(my_id) + " " + str(datetime.now()) 
 # port = 45961
-
-# if len(server_list) == my_id + 1:
-#     neighbour = server_list[1]
-# else:
-#     neighbour = server_list[my_id + 1]
-# print("my neighbour is: ", neighbour)
 
 # utility.send_msg(msg, neighbour, port)

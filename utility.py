@@ -43,22 +43,50 @@ def udp_listener(leader):
     while True:
         data, addr = s.recvfrom(1024)
         if data:
-            print("Received broadcast message:", data.decode())
+            print("Message:", data.decode())
             #check if Iam leader
-            if leader == True:
-                msg_split(data.decode())
+            msg_split(data.decode(), leader)
 
 #Split mgs into receiver and msg and forward it to receiver
-def msg_split(rec_msg):
+def msg_split(rec_msg, leader):
     msg_obj = rec_msg.split("@")
-    to = msg_obj[0]
-    msg = msg_obj[1]
-    sender = msg_obj[2]
-    print("send to: " + to)
+    kind= msg_obj[0]
+    to = msg_obj[1]
+    msg = msg_obj[2]
+    sender = msg_obj[3]
+    #print("send to: " + to)
     print("msg: " + msg)
-    print("from: " + usr_name(sender))
-    msg = "from: " + usr_name(sender) + ": " + msg
-    send_msg(msg, to)
+    print("from: " + sender)
+    
+
+    if kind == "voting":
+        msg = "voting@" + str(neighbour()) + "@" + "@" + get_ip()   
+        send_msg(msg, server_ip(str(neighbour())))
+    
+    if leader == True:    
+        if kind == "msg":
+            msg = "msg@" + to + "@" + msg + "@" + usr_name(sender)
+            print(msg)
+            send_msg(msg, to)
+
+    
+#find neighbour
+def neighbour():
+    myip = get_ip()
+
+    with open("servers.json","r") as servers:
+        server_list = json.load(servers)
+
+    my_id = server_name(myip)
+    print(my_id)
+    print(len(server_list))
+
+    if len(server_list) == int(my_id):
+        neighbour = 1
+    else:
+        neighbour = int(my_id) + 1
+    print("my neighbour is: ", neighbour) 
+    return(neighbour)
 
 
 #Send UDP msg
@@ -89,3 +117,19 @@ def usr_name(ip):
     names = list(user_list.keys())
     ips = list(user_list.values())
     return(names[ips.index(ip)])
+
+#get server by ip
+def server_name(ip):
+    with open("servers.json","r") as servers:
+        server_list = json.load(servers)
+    ids = list(server_list.keys())
+    ips = list(server_list.values())
+    return(ids[ips.index(ip)])
+
+#get ip of server by name
+def server_ip(id):
+    with open("servers.json","r") as server:
+        server_list = json.load(server)
+    server_ip = server_list[id]
+    print("server ip is: " + server_ip)
+    return(server_ip)
