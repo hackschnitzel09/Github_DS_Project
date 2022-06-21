@@ -1,3 +1,5 @@
 kind@to@msg@sender
 
 with id 
+
+somewhen with timestamp

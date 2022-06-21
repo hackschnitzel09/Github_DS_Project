@@ -1,6 +1,10 @@
 import threading
 import utility
 
+#send ip to leader check for id  wait for server reply if no reöy trigger voting
+#check leader hartbeat else trigger voting
+#update lists according to leader info
+
 port = 45961
 leader = False
 
