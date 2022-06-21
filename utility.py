@@ -1,6 +1,8 @@
 import json
 from operator import truediv
 import socket
+#todo
+#neighbor what if there is no +1 id
 port = 45961
 
 server_list = open('servers.json','r')
@@ -60,8 +62,8 @@ def msg_split(rec_msg, leader):
     
 
     if kind == "voting":
-        msg = "voting@" + str(neighbour()) + "@" + "@" + get_ip()   
-        send_msg(msg, server_ip(str(neighbour())))
+        msg = "voting@" + str(neighbor()) + "@" + "@" + get_ip()   
+        send_msg(msg, server_ip(str(neighbor())))
     
     if leader == True:    
         if kind == "msg":
@@ -70,8 +72,8 @@ def msg_split(rec_msg, leader):
             send_msg(msg, to)
 
     
-#find neighbour
-def neighbour():
+#find neighbor
+def neighbor():
     myip = get_ip()
 
     with open("servers.json","r") as servers:
@@ -82,11 +84,11 @@ def neighbour():
     print(len(server_list))
 
     if len(server_list) == int(my_id):
-        neighbour = 1
+        neighbor = 1
     else:
-        neighbour = int(my_id) + 1
-    print("my neighbour is: ", neighbour) 
-    return(neighbour)
+        neighbor = int(my_id) + 1
+    print("my neighbor is: ", neighbor) 
+    return(neighbor)
 
 
 #Send UDP msg
