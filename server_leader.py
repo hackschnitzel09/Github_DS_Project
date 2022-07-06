@@ -1,5 +1,6 @@
 import threading
 import utility
+import time
 
 #reply to new clients and servers and maintain lists
 #hartbeat
@@ -9,4 +10,9 @@ import utility
 port = 45961
 leader = True
 
-utility.udp_listener(leader)
+threading.Thread(target=utility.udp_listener, args=(leader,)).start()
+
+
+while True:
+    utility.hartbeat()
+    time.sleep(5)

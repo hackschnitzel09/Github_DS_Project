@@ -97,6 +97,12 @@ def send_msg(msg, rec_ip):
     s.sendto(msg.encode(),(rec_ip, port))
     print("msg send to: " + rec_ip)
 
+#Send UDP msg with Port
+def send_msgp(msg, rec_ip, port):
+    s = create_socket()
+    s.sendto(msg.encode(),(rec_ip, port))
+    print("msg send to: " + rec_ip)
+
 #send broadcast
 def send_broadcast(msg):
     s = create_socket()
@@ -135,3 +141,13 @@ def server_ip(id):
     server_ip = server_list[id]
     print("server ip is: " + server_ip)
     return(server_ip)
+
+#hartbeat
+def hartbeat():
+    with open("servers.json","r") as servers:
+        server_list = json.load(servers)
+    i = 1
+    while i <= len(server_list):
+        send_msgp("hartbeat@to@msg@sender", str(server_list[str(i)]), "45962")
+        i += 1
+    print("Hartbeat send")

@@ -4,6 +4,9 @@ import json
 from datetime import datetime
 
 
+#if voted set leader variable in server.py
+#pin neigbour bevor send
+
 #utility.neighbor()
 
 
