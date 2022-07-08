@@ -1,6 +1,7 @@
 import json
 from operator import truediv
 import socket
+import time
 #todo
 #neighbor what if there is no +1 id
 port = 45961
@@ -100,7 +101,7 @@ def send_msg(msg, rec_ip):
 #Send UDP msg with Port
 def send_msgp(msg, rec_ip, port):
     s = create_socket()
-    s.sendto(msg.encode(),(rec_ip, port))
+    s.sendto(msg.encode(),(rec_ip, int(port)))
     print("msg send to: " + rec_ip)
 
 #send broadcast
@@ -142,12 +143,17 @@ def server_ip(id):
     print("server ip is: " + server_ip)
     return(server_ip)
 
-#hartbeat
-def hartbeat():
+#heartbeat sender
+def heartbeat():
     with open("servers.json","r") as servers:
         server_list = json.load(servers)
     i = 1
     while i <= len(server_list):
-        send_msgp("hartbeat@to@msg@sender", str(server_list[str(i)]), "45962")
+        send_msgp("heartbeat@to@msg@sender", str(server_list[str(i)]), "45962")
         i += 1
     print("Hartbeat send")
+
+#Voting
+def voting():
+    msg = "voting@" + str(neighbor()) + "@"  +"msg@" + server_name(get_ip())
+    send_msg(msg, (server_ip(str(neighbor()))))

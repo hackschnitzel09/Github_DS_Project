@@ -3,7 +3,7 @@ import utility
 import time
 
 #reply to new clients and servers and maintain lists
-#hartbeat
+#heartbeat
 #sync lists to other servers
 
 
@@ -14,5 +14,5 @@ threading.Thread(target=utility.udp_listener, args=(leader,)).start()
 
 
 while True:
-    utility.hartbeat()
+    utility.heartbeat()
     time.sleep(5)
