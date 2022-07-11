@@ -64,6 +64,23 @@ def msg_split(rec_msg, leader):
         msg = "voting@" + str(neighbor()) + "@" + "@" + get_ip()   
         send_msg(msg, server_ip(str(neighbor())))
     
+    if leader == False:
+        if kind == "updates":
+            server_list = []
+            with open("servers.json") as servers:
+                server_list = json.load(servers)
+            server_list = msg
+            bla= open("servers.json", "w")
+            json.dump(server_list, bla)
+
+        if kind == "updateu":
+            user_list = []
+            with open("users.json") as users:
+                user_list = json.load(users)
+            user_list = msg
+            bla= open("users.json", "w")
+            json.dump(user_list, bla)
+    
     if leader == True:    
         if kind == "msg":
             msg = "msg@" + to + "@" + msg + "@" + usr_name(sender)
@@ -114,6 +131,15 @@ def add_user(ip, name):
     json.dump(user_list, bla)
     print("user added")
 
+def read_listu():
+    with open("users.json") as users:
+        user_list = json.load(users)
+    return user_list
+
+def read_lists():
+    with open("servers.json") as servers:
+        server_list = json.load(servers)
+    return server_list
 
 #Send UDP msg
 def send_msg(msg, rec_ip):
@@ -168,12 +194,18 @@ def server_ip(id):
 
 #heartbeat sender
 def heartbeat():
+    msgu = "updateu@bla@" + str(read_listu()) + "@" + get_ip()
+    msgs = "updates@bla@" + str(read_lists()) + "@" + get_ip()
     with open("servers.json","r") as servers:
         server_list = json.load(servers)
     i = 1
     while i <= len(server_list):
         send_msgp("heartbeat@to@msg@sender", str(server_list[str(i)]), "45962")
+        send_msg(msgu, str(server_list[str(i)]))
+        send_msg(msgs, str(server_list[str(i)]))
         i += 1
+        
+
     print("Hartbeat send")
 
 #Voting ping is missing if next server is there
