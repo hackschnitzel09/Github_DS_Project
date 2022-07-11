@@ -5,6 +5,7 @@ import utility
 import socket
 import time
 
+
 #send ip to leader check for id  wait for server reply if no reöy trigger voting
 #check leader heartbeat else trigger voting
 #update lists according to leader info
@@ -45,8 +46,6 @@ def heartbeat_reset():
         if heart == True:
             heart = False
             
-        
-
             
 
 threading.Thread(target=heartbeat_rec).start()

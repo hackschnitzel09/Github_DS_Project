@@ -12,8 +12,6 @@ server_list = open('servers.json','r')
 #     servers = json.load(json_file)
 #     print(json.dumps(servers, indent=4))
 
-# with open("servers.json", "w") as write_file:
-#     json.dump(data, write_file)
 
 
 
@@ -71,6 +69,10 @@ def msg_split(rec_msg, leader):
             msg = "msg@" + to + "@" + msg + "@" + usr_name(sender)
             print(msg)
             send_msg(msg, to)
+        if kind == "newu":
+            add_user(sender, msg)
+        if kind == "news":
+            add_server(sender)
 
     
 #find neighbor
@@ -90,6 +92,27 @@ def neighbor():
         neighbor = int(my_id) + 1
     print("my neighbor is: ", neighbor) 
     return(neighbor)
+
+#add user to list 
+def add_server(ip):
+    server_list = []
+    with open("servers.json") as servers:
+        server_list = json.load(servers)
+    id = len(server_list)+ 1
+    server_list.update({id: ip})
+    bla= open("servers.json", "w")
+    json.dump(server_list, bla)
+    print("server added")
+
+#add user to list 
+def add_user(ip, name):
+    user_list = []
+    with open("users.json") as users:
+        user_list = json.load(users)
+    user_list.update({name: ip})
+    bla= open("users.json", "w")
+    json.dump(user_list, bla)
+    print("user added")
 
 
 #Send UDP msg
@@ -153,7 +176,7 @@ def heartbeat():
         i += 1
     print("Hartbeat send")
 
-#Voting
+#Voting ping is missing if next server is there
 def voting():
     msg = "voting@" + str(neighbor()) + "@"  +"msg@" + server_name(get_ip())
     send_msg(msg, (server_ip(str(neighbor()))))
